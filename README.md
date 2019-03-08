@@ -8,4 +8,7 @@ Actually the challenge is that microservices are isolated among themselves and t
 
 Thanks to the open source. We already have bundle of tools which can do the magic if used properly together. One such popular set of tools are Elastic Search, Logstash and Kibana – together referred as ELK stack. They are used for searching, analyzing, and visualizing log data in a real time.
 
+# ELK Stack Architecture :
+https://user-images.githubusercontent.com/30971809/54028642-fb1e7f80-41a5-11e9-9873-1e2b6c316615.png
+
 
