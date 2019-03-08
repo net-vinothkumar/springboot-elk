@@ -1,2 +1,2 @@
-# springboot-elk
-spring boot application sending logs to elastic search logstash kibana demo
+# Springboot-ELK
+Spring Boot application sending logs to "Elastic Search Logstash Kibana" demo
