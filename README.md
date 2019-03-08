@@ -102,5 +102,15 @@ Don’t be afraid by seeing the big stack trace in the screen as it has been don
 
 Go to the application root directory and verify that the log file i.e. elk-example.log has been created and do a couple of visits to the endpoints and verify that logs are getting added in the log file.
 
+# Test The Demo Application with ELK 
+
+Now when all components are up and running, let’s verify the whole ecosystem.
+
+Go to application and test the end points couple of times so that logs got generated and then go to Kibana console and see that logs are properly stacked in the Kibana with lots of extra feature like we can filter, see different graphs etc in built.
+
+Here is the view of generated logs in Kibana.
+
+
+
 
 
