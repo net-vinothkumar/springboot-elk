@@ -21,6 +21,27 @@ Logstash processes the application log files based on the filter criteria we set
 
 ### Kibana gives the visualization of data through a UI.
 
+# ELK stack configuration
+All these three tools are based on JVM and before start installing them, please verify that JDK has been properly configured. Check that standard JDK 1.8 installation, JAVA_HOME and PATH set up is already done.
+
+# Elasticsearch
+Download latest version of Elasticsearch from this download page and unzip it any folder.
+Run bin\elasticsearch.bat from command prompt.
+By default, it would start at http://localhost:9200
+
+# Kibana
+Download the latest distribution from download page and unzip into any folder.
+Open config/kibana.yml in an editor and set elasticsearch.url to point at your Elasticsearch instance. In our case as we will use the local instance just uncomment elasticsearch.hosts: "http://localhost:9200"
+Run bin\kibana.bat from command prompt.
+Once started successfully, Kibana will start on default port 5601 and Kibana UI will be available at http://localhost:5601
+
+# Logstash
+Download the latest distribution from download page and unzip into any folder.
+Create one file logstash.conf as per configuration instructions. We will again come to this point during actual demo time for exact configuration.
+Now run bin/logstash -f logstash.conf to start logstash
+
+Once ELK stack is up and running. You could start this demo project and call the REST endpoints , view the logs in KIBANA.
+
 
 
 
