@@ -110,6 +110,9 @@ Go to application and test the end points couple of times so that logs got gener
 
 Here is the view of generated logs in Kibana.
 
+<img width="1672" alt="screen shot 2019-03-08 at 13 42 11" src="https://user-images.githubusercontent.com/30971809/54029243-0a063180-41a8-11e9-90a8-24bd7cbe01c3.png">
+
+
 
 
 
