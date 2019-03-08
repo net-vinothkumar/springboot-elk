@@ -40,9 +40,67 @@ Download the latest distribution from download page and unzip into any folder.
 Create one file logstash.conf as per configuration instructions. We will again come to this point during actual demo time for exact configuration.
 Now run bin/logstash -f logstash.conf to start logstash
 
+# Logstash configuration 
+
+We need to create a logstash configuration file so that it listen to the log file and push log messages to elastic search. Here is the logstash configuration used in the example, please change the log path as per your setup.
+
+```
+input {
+  file {
+    type => "java"
+    path => "<PLEASE_UPDATE_YOUR_LOG_FILE_PATH_HERE>"
+    codec => multiline {
+      pattern => "^%{YEAR}-%{MONTHNUM}-%{MONTHDAY} %{TIME}.*"
+      negate => "true"
+      what => "previous"
+    }
+  }
+}
+ 
+filter {
+  #If log line contains tab character followed by 'at' then we will tag that entry as stacktrace
+  if [message] =~ "\tat" {
+    grok {
+      match => ["message", "^(\tat)"]
+      add_tag => ["stacktrace"]
+    }
+  }
+ 
+ grok {
+    match => [ "message",
+               "(?<timestamp>%{YEAR}-%{MONTHNUM}-%{MONTHDAY} %{TIME})  %{LOGLEVEL:level} %{NUMBER:pid} --- \[(?<thread>[A-Za-z0-9-]+)\] [A-Za-z0-9.]*\.(?<class>[A-Za-z0-9#_]+)\s*:\s+(?<logmessage>.*)",
+               "message",
+               "(?<timestamp>%{YEAR}-%{MONTHNUM}-%{MONTHDAY} %{TIME})  %{LOGLEVEL:level} %{NUMBER:pid} --- .+? :\s+(?<logmessage>.*)"
+             ]
+  }
+ 
+  
+  date {
+    match => [ "timestamp" , "yyyy-MM-dd HH:mm:ss.SSS" ]
+  }
+}
+ 
+output {
+   
+  stdout {
+    codec => rubydebug
+  }
+ 
+  # Sending properly parsed log events to elasticsearch
+  elasticsearch {
+    hosts => ["localhost:9200"]
+  }
+} 
+```
+
 Once ELK stack is up and running. You could start this demo project and call the REST endpoints , view the logs in KIBANA.
 
+Do a final maven build using mvn clean install and start the application and test by browsing http://localhost:8080/elk or
+http://localhost:8080/elkdemo or http://localhost:8080/exception
 
+Don’t be afraid by seeing the big stack trace in the screen as it has been done intentionally to see how ELK handles exception message.
+
+Go to the application root directory and verify that the log file i.e. elk-example.log has been created and do a couple of visits to the endpoints and verify that logs are getting added in the log file.
 
 
 
